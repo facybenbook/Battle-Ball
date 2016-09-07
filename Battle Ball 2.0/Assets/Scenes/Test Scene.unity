@@ -97,7 +97,9 @@ GameObject:
   - 23: {fileID: 632524691}
   - 58: {fileID: 632524690}
   - 50: {fileID: 632524689}
+  - 114: {fileID: 632524695}
   - 114: {fileID: 632524688}
+  - 114: {fileID: 632524694}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -200,6 +202,33 @@ Transform:
   - {fileID: 1213164658}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &632524694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 632524687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5d4048dab0e582459eedcdc4d72d19e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power1Button: 2
+  power2Button: 1
+  triggerDeadzone: 0.2
+--- !u!114 &632524695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 632524687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b128653d92daf1489e73aafdec4d712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 0
+  playerTeam: 0
 --- !u!1 &996566606
 GameObject:
   m_ObjectHideFlags: 0

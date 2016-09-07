@@ -10,11 +10,8 @@ public class EVTData
     public UISoundCueEVT SoundCue = null;
     public UIMusicCueEVT MusicCue = null;
     public SoundCutoutEVT SoundCutout = null;
-    public SceneTransitionEVT SceneTransition = null;
 
     public PlayerDeathEVT PlayerDeath = null;
-    public TransitionCameraEVT TransitionCamera = null;
-    public ChangeCameraPivotEVT ChangeCameraPivot = null;
 }
 
 
@@ -66,47 +63,18 @@ public class SoundCutoutEVT
 }
 
 
-//Event data used when we transition to a new scene
-public class SceneTransitionEVT
-{
-    public string NewSceneName = "";
-    public float TransitionTime = 1;
-}
-
-
-
 /****************************************************************** GAMEPLAY EVENTS ******************************************************************/
 
 //Event data used when a player dies and we need to know who it was
 public class PlayerDeathEVT 
 {
-    public Players PlayerID = Players.P1;
-}
+    public Players playerID = Players.None;
+    public TeamColors playerTeam = TeamColors.None;
 
-
-public class TransitionCameraEVT
-{
-    public Players PlayerID = Players.P1;
-    public GameObject CurrentCamera = null;
-    public GameObject NextCamera = null;
-    public float TransitionTime = 0.1f;
-    public bool TransitionToStaticCam = false;
-    public EaseType InterpEase = EaseType.Linear;
-    [Range(0.01f, 1.0f)]
-    public float MovePercent = 0.1f;
-}
-
-
-public class ChangeCameraPivotEVT
-{
-    public TeamNumbers DesignatedTeam = TeamNumbers.None;
-    public Players NewPlayerController = Players.P1;
-    public GameObject NewObjectToFollow = null;
-
-    public ChangeCameraPivotEVT(TeamNumbers teamID_, Players newPlayerController_, GameObject newObjToFollow_)
+    //Constructor function to set the player ID and their team
+    public PlayerDeathEVT(Players playerID_ = Players.P1, TeamColors playerTeam_ = TeamColors.None)
     {
-        DesignatedTeam = teamID_;
-        NewPlayerController = newPlayerController_;
-        NewObjectToFollow = newObjToFollow_;
+        this.playerID = playerID_;
+        this.playerTeam = playerTeam_;
     }
 }

@@ -426,3 +426,23 @@ public class Manager_ControllerInput// : MonoBehaviour
             LookSensitivity = newSensitivity;
     }
 }
+
+
+
+//Enums used Manager_P#Controller scripts for button input
+public enum ControllerButtons
+{
+    A_Button,
+    B_Button,
+    X_Button,
+    Y_Button,
+
+    Left_Bumper,
+    Right_Bumper,
+
+    Back_Button,
+    Start_Button,
+
+    Left_Stick_Click,
+    Right_Stick_Click
+}

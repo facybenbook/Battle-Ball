@@ -20,10 +20,14 @@ public class Manager_ControllerInputManager : MonoBehaviour
     static public Manager_ControllerInput P2Controller;
     static public Manager_ControllerInput P3Controller;
     static public Manager_ControllerInput P4Controller;
+    static public Manager_ControllerInput P5Controller;
+    static public Manager_ControllerInput P6Controller;
+    static public Manager_ControllerInput P7Controller;
+    static public Manager_ControllerInput P8Controller;
 
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Awake ()
     {
         //Does nothing if there's already a static instance of a Controller Input Manager
         if (InputManagerInstance != null)
@@ -45,6 +49,18 @@ public class Manager_ControllerInputManager : MonoBehaviour
         P4Controller = new Manager_ControllerInput();
         P4Controller.SetPlayerID(Players.P4);
 
+        P5Controller = new Manager_ControllerInput();
+        P5Controller.SetPlayerID(Players.P5);
+
+        P6Controller = new Manager_ControllerInput();
+        P6Controller.SetPlayerID(Players.P6);
+
+        P7Controller = new Manager_ControllerInput();
+        P7Controller.SetPlayerID(Players.P7);
+
+        P8Controller = new Manager_ControllerInput();
+        P8Controller.SetPlayerID(Players.P8);
+
     }
 	
 
@@ -55,6 +71,10 @@ public class Manager_ControllerInputManager : MonoBehaviour
         P2Controller.LogicUpdate();
         P3Controller.LogicUpdate();
         P4Controller.LogicUpdate();
+        P5Controller.LogicUpdate();
+        P6Controller.LogicUpdate();
+        P7Controller.LogicUpdate();
+        P8Controller.LogicUpdate();
     }
 
 	
@@ -65,6 +85,10 @@ public class Manager_ControllerInputManager : MonoBehaviour
         P2Controller.DisableInput();
         P3Controller.DisableInput();
         P4Controller.DisableInput();
+        P5Controller.DisableInput();
+        P6Controller.DisableInput();
+        P7Controller.DisableInput();
+        P8Controller.DisableInput();
     }
 
 
@@ -75,6 +99,10 @@ public class Manager_ControllerInputManager : MonoBehaviour
         P2Controller.EnableInput();
         P3Controller.EnableInput();
         P4Controller.EnableInput();
+        P5Controller.EnableInput();
+        P6Controller.EnableInput();
+        P7Controller.EnableInput();
+        P8Controller.EnableInput();
     }
 
 

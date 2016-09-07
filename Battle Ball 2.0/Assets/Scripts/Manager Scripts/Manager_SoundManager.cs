@@ -183,3 +183,22 @@ public class Manager_SoundManager : MonoBehaviour
 
     }
 }
+
+
+//The sound system that the player is currently using
+public enum SoundProfile
+{
+    ComputerSpeakers,
+    RoomSpeakers,
+    Headphones
+}
+
+
+//Type of sound that a sound emitter plays. Manager_SoundManager affects the volume differently based on this enum.
+public enum SoundType
+{
+    Music,
+    SFX,
+    Dialogue,
+    Cutout //Sound effects with this tag are exempt from being muted when the sound cuts out from things like explosions
+}

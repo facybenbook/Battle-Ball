@@ -160,3 +160,19 @@ public class Manager_ScreenSettings : MonoBehaviour
         Manager_EventManager.TriggerEvent("ChangeDarkness");
     }
 }
+
+
+
+//Enums used in Manager_ScreenSettings to set the screen resolution size
+public enum ScreenResolution
+{
+    r1920x1200,
+    r1920x1080,
+    r1680x1050,
+    r1600x900,
+    r1440x900,
+    r1366x768,
+    r1280x1024,
+    r1280x800,
+    r1024x768
+}

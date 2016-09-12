@@ -7,18 +7,25 @@ public class Player_IDTag : MonoBehaviour
     public Players playerID = Players.P1;
 
     //Which team this player is currently on
-    public TeamColors playerTeam = TeamColors.None;
+    public Teams playerTeam = Teams.None;
 
     //Reference to the controller that gives this player inputs
     public Manager_ControllerInput playerController;
 
+    //Delegate event that enables this player to change teams
     private DelegateEvent<EVTData> changeTeamEVT;
+
+    //The color that this player's sprite is
+
 
 
 
 	// Use this for initialization
 	private void Awake ()
     {
+        //Sets the changeTeamEVT delegate to invoke the ChangeTeam function
+        this.changeTeamEVT = this.ChangeTeam;
+
         //Gets the static reference from the Controller Input Manager for the correct controller
         switch (this.playerID)
         {
@@ -53,13 +60,25 @@ public class Player_IDTag : MonoBehaviour
     //Function called when this component is enabled
     private void OnEnable()
     {
-
+        Manager_EventManager.StartListening(PlayerChangeTeamEVT.eventName, this.changeTeamEVT);
     }
+
 
     //Function called when this component is disabled
     private void OnDisable()
     {
+        Manager_EventManager.StopListening(PlayerChangeTeamEVT.eventName, this.changeTeamEVT);
+    }
 
+
+    //Function called from the changeTeamEVT delegate event. Changes this player's team
+    private void ChangeTeam(EVTData data_)
+    {
+        //Does nothing if this isn't the player that's changing teams
+        if (data_.playerChangeTeam.playerID != this.playerID)
+            return;
+
+        this.playerTeam = data_.playerChangeTeam.teamID;
     }
 }
 
@@ -81,7 +100,7 @@ public enum Players
 
 
 //Enums to reference different teams of players identified by the team color
-public enum TeamColors
+public enum Teams
 {
     None,
     All,

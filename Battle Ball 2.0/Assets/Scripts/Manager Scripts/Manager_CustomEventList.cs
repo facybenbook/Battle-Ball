@@ -13,6 +13,8 @@ public class EVTData
 
     public PlayerDeathEVT playerDeath;
     public PlayerPowerActivateEVT playerPowerActivate;
+    public PlayerChangeTeamEVT playerChangeTeam;
+    public GoalScoredEVT goalScored;
 }
 
 
@@ -86,10 +88,10 @@ public class PlayerDeathEVT
 
     //ID of the player that died and their team
     public Players playerID = Players.None;
-    public TeamColors playerTeam = TeamColors.None;
+    public Teams playerTeam = Teams.None;
 
     //Constructor function to set the player ID and their team
-    public PlayerDeathEVT(Players playerID_ = Players.P1, TeamColors playerTeam_ = TeamColors.None)
+    public PlayerDeathEVT(Players playerID_ = Players.P1, Teams playerTeam_ = Teams.None)
     {
         this.playerID = playerID_;
         this.playerTeam = playerTeam_;
@@ -116,5 +118,51 @@ public class PlayerPowerActivateEVT
         playerID = playerID_;
         power1Used = power1Used_;
         power2Used = power2Used_;
+    }
+}
+
+
+//Event data used when a player changes their team
+public class PlayerChangeTeamEVT
+{
+    //Static event name to use when triggering this event
+    public static string eventName = "PlayerChangeTeam";
+
+    //The player that's changing teams
+    public Players playerID = Players.None;
+    //The team that the player is switching to
+    public Teams teamID = Teams.None;
+    //The color of this player's team
+    public Color teamColor = Color.white;
+
+    //Constructor for this event
+    public PlayerChangeTeamEVT(Players playerID_ = Players.None, Teams teamID_ = Teams.None, Color teamColor_ = new Color())
+    {
+        playerID = playerID_;
+        teamID = teamID_;
+        teamColor = teamColor_;
+    }
+}
+
+
+//Event data used when a player scores a goal
+public class GoalScoredEVT
+{
+    //Static event name to use when triggering this event
+    public static string eventName = "GoalScored";
+
+    //The player that scored the goal
+    public Players playerID = Players.None;
+    //The team that the scoring player is on
+    public Teams playerTeamID = Teams.None;
+    //The team that a goal was scored on
+    public Teams scoredAgainstTeam = Teams.None;
+
+    //Constructor for this event
+    public GoalScoredEVT(Players playerID_ = Players.None, Teams playerTeamID_ = Teams.None, Teams scoredAgainstTeam_ = Teams.None)
+    {
+        playerID = playerID_;
+        playerTeamID = playerTeamID_;
+        scoredAgainstTeam = scoredAgainstTeam_;
     }
 }

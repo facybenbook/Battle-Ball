@@ -35,10 +35,14 @@ public class Misc_SplashScreenLogic : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape) ||
             Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2) ||
-            Manager_ControllerInputManager.P1Controller.A_Button_Pressed || Manager_ControllerInputManager.P1Controller.Start_Button_Pressed ||
-            Manager_ControllerInputManager.P2Controller.A_Button_Pressed || Manager_ControllerInputManager.P2Controller.Start_Button_Pressed ||
-            Manager_ControllerInputManager.P3Controller.A_Button_Pressed || Manager_ControllerInputManager.P3Controller.Start_Button_Pressed ||
-            Manager_ControllerInputManager.P4Controller.A_Button_Pressed || Manager_ControllerInputManager.P4Controller.Start_Button_Pressed)
+            Manager_ControllerInputManager.p1Controller.A_Button_Pressed || Manager_ControllerInputManager.p1Controller.Start_Button_Pressed ||
+            Manager_ControllerInputManager.p2Controller.A_Button_Pressed || Manager_ControllerInputManager.p2Controller.Start_Button_Pressed ||
+            Manager_ControllerInputManager.p3Controller.A_Button_Pressed || Manager_ControllerInputManager.p3Controller.Start_Button_Pressed ||
+            Manager_ControllerInputManager.p4Controller.A_Button_Pressed || Manager_ControllerInputManager.p4Controller.Start_Button_Pressed ||
+            Manager_ControllerInputManager.p5Controller.A_Button_Pressed || Manager_ControllerInputManager.p5Controller.Start_Button_Pressed ||
+            Manager_ControllerInputManager.p6Controller.A_Button_Pressed || Manager_ControllerInputManager.p6Controller.Start_Button_Pressed ||
+            Manager_ControllerInputManager.p7Controller.A_Button_Pressed || Manager_ControllerInputManager.p7Controller.Start_Button_Pressed ||
+            Manager_ControllerInputManager.p8Controller.A_Button_Pressed || Manager_ControllerInputManager.p8Controller.Start_Button_Pressed)
         {
             IsSkipping = true;
         }

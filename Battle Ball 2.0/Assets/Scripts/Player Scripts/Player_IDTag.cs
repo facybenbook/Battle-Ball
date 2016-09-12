@@ -16,7 +16,8 @@ public class Player_IDTag : MonoBehaviour
     private DelegateEvent<EVTData> changeTeamEVT;
 
     //The color that this player's sprite is
-
+    [HideInInspector]
+    public Color playerColor = Color.gray;
 
 
 
@@ -30,28 +31,28 @@ public class Player_IDTag : MonoBehaviour
         switch (this.playerID)
         {
             case Players.P1:
-                this.playerController = Manager_ControllerInputManager.P1Controller;
+                this.playerController = Manager_ControllerInputManager.p1Controller;
                 break;
             case Players.P2:
-                this.playerController = Manager_ControllerInputManager.P2Controller;
+                this.playerController = Manager_ControllerInputManager.p2Controller;
                 break;
             case Players.P3:
-                this.playerController = Manager_ControllerInputManager.P3Controller;
+                this.playerController = Manager_ControllerInputManager.p3Controller;
                 break;
             case Players.P4:
-                this.playerController = Manager_ControllerInputManager.P4Controller;
+                this.playerController = Manager_ControllerInputManager.p4Controller;
                 break;
             case Players.P5:
-                this.playerController = Manager_ControllerInputManager.P5Controller;
+                this.playerController = Manager_ControllerInputManager.p5Controller;
                 break;
             case Players.P6:
-                this.playerController = Manager_ControllerInputManager.P6Controller;
+                this.playerController = Manager_ControllerInputManager.p6Controller;
                 break;
             case Players.P7:
-                this.playerController = Manager_ControllerInputManager.P7Controller;
+                this.playerController = Manager_ControllerInputManager.p7Controller;
                 break;
             case Players.P8:
-                this.playerController = Manager_ControllerInputManager.P8Controller;
+                this.playerController = Manager_ControllerInputManager.p8Controller;
                 break;
         }
     }

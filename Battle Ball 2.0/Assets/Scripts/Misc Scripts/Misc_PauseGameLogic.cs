@@ -44,42 +44,42 @@ public class Misc_PauseGameLogic : MonoBehaviour
                 PauseButtonHit(Players.P1);
             }
             //If player 1 pauses
-            else if (Manager_ControllerInputManager.P1Controller.Start_Button_Pressed)
+            else if (Manager_ControllerInputManager.p1Controller.Start_Button_Pressed)
             {
                 PauseButtonHit(Players.P1);
             }
             //If player 2 pauses
-            else if (Manager_ControllerInputManager.P2Controller.Start_Button_Pressed)
+            else if (Manager_ControllerInputManager.p2Controller.Start_Button_Pressed)
             {
                 PauseButtonHit(Players.P2);
             }
             //If player 3 pauses
-            else if (Manager_ControllerInputManager.P3Controller.Start_Button_Pressed)
+            else if (Manager_ControllerInputManager.p3Controller.Start_Button_Pressed)
             {
                 PauseButtonHit(Players.P3);
             }
             //If player 4 pauses
-            else if (Manager_ControllerInputManager.P4Controller.Start_Button_Pressed)
+            else if (Manager_ControllerInputManager.p4Controller.Start_Button_Pressed)
             {
                 PauseButtonHit(Players.P4);
             }
             //If player 5 pauses
-            else if (Manager_ControllerInputManager.P5Controller.Start_Button_Pressed)
+            else if (Manager_ControllerInputManager.p5Controller.Start_Button_Pressed)
             {
                 PauseButtonHit(Players.P5);
             }
             //If player 6 pauses
-            else if (Manager_ControllerInputManager.P6Controller.Start_Button_Pressed)
+            else if (Manager_ControllerInputManager.p6Controller.Start_Button_Pressed)
             {
                 PauseButtonHit(Players.P6);
             }
             //If player 7 pauses
-            else if (Manager_ControllerInputManager.P7Controller.Start_Button_Pressed)
+            else if (Manager_ControllerInputManager.p7Controller.Start_Button_Pressed)
             {
                 PauseButtonHit(Players.P7);
             }
             //If player 8 pauses
-            else if (Manager_ControllerInputManager.P8Controller.Start_Button_Pressed)
+            else if (Manager_ControllerInputManager.p8Controller.Start_Button_Pressed)
             {
                 PauseButtonHit(Players.P8);
             }

@@ -53,7 +53,10 @@ public class BattleBallLogic : MonoBehaviour
         {
             Player_IDTag quickRefID = otherObj_.gameObject.GetComponent<Player_IDTag>();
 
-
+            //Stores the info of the player that hits this ball, and changes the trail color of this ball to match the player's color
+            this.lastPlayerHit = quickRefID.playerID;
+            this.lastPlayerHitsTeam = quickRefID.playerTeam;
+            this.ballTrail.material.SetColor("_EmissionColor", quickRefID.playerColor);
         }
     }
     

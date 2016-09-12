@@ -44,19 +44,31 @@ public class Misc_UIControllerCursor : MonoBehaviour
 	    switch(PlayerID)
         {
             case Players.P1:
-                PlayerInput = Manager_ControllerInputManager.P1Controller;
+                PlayerInput = Manager_ControllerInputManager.p1Controller;
                 break;
             case Players.P2:
-                PlayerInput = Manager_ControllerInputManager.P2Controller;
+                PlayerInput = Manager_ControllerInputManager.p2Controller;
                 break;
             case Players.P3:
-                PlayerInput = Manager_ControllerInputManager.P3Controller;
+                PlayerInput = Manager_ControllerInputManager.p3Controller;
                 break;
             case Players.P4:
-                PlayerInput = Manager_ControllerInputManager.P4Controller;
+                PlayerInput = Manager_ControllerInputManager.p4Controller;
+                break;
+            case Players.P5:
+                PlayerInput = Manager_ControllerInputManager.p5Controller;
+                break;
+            case Players.P6:
+                PlayerInput = Manager_ControllerInputManager.p6Controller;
+                break;
+            case Players.P7:
+                PlayerInput = Manager_ControllerInputManager.p7Controller;
+                break;
+            case Players.P8:
+                PlayerInput = Manager_ControllerInputManager.p8Controller;
                 break;
             default:
-                PlayerInput = Manager_ControllerInputManager.P1Controller;
+                PlayerInput = Manager_ControllerInputManager.p1Controller;
                 break;
         }
 	}

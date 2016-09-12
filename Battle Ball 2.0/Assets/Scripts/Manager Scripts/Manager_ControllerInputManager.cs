@@ -13,53 +13,54 @@ using System.Collections;
 public class Manager_ControllerInputManager : MonoBehaviour
 {
     //A static reference to this instance of the Controller Input Manager so that we can reference it at any time
-    static public Manager_ControllerInputManager InputManagerInstance;
+    static public Manager_ControllerInputManager inputManagerInstance;
 
     //Static Controller Input classes for each player's controller so that we can find their input at any time
-    static public Manager_ControllerInput P1Controller;
-    static public Manager_ControllerInput P2Controller;
-    static public Manager_ControllerInput P3Controller;
-    static public Manager_ControllerInput P4Controller;
-    static public Manager_ControllerInput P5Controller;
-    static public Manager_ControllerInput P6Controller;
-    static public Manager_ControllerInput P7Controller;
-    static public Manager_ControllerInput P8Controller;
+    static public Manager_ControllerInput p1Controller;
+    static public Manager_ControllerInput p2Controller;
+    static public Manager_ControllerInput p3Controller;
+    static public Manager_ControllerInput p4Controller;
+    static public Manager_ControllerInput p5Controller;
+    static public Manager_ControllerInput p6Controller;
+    static public Manager_ControllerInput p7Controller;
+    static public Manager_ControllerInput p8Controller;
+
 
 
     // Use this for initialization
     void Awake ()
     {
         //Does nothing if there's already a static instance of a Controller Input Manager
-        if (InputManagerInstance != null)
+        if (inputManagerInstance != null)
             return;
 
         //If there isn't already a static instance of a Controller Input Manager, this becomes the static instance
-        InputManagerInstance = GetComponent<Manager_ControllerInputManager>();
+        inputManagerInstance = GetComponent<Manager_ControllerInputManager>();
 
         //Creates new Controller Inputs for each player controller
-        P1Controller = new Manager_ControllerInput();
-        P1Controller.SetPlayerID(Players.P1);
+        p1Controller = new Manager_ControllerInput();
+        p1Controller.SetPlayerID(Players.P1);
         
-        P2Controller = new Manager_ControllerInput();
-        P2Controller.SetPlayerID(Players.P2);
+        p2Controller = new Manager_ControllerInput();
+        p2Controller.SetPlayerID(Players.P2);
         
-        P3Controller = new Manager_ControllerInput();
-        P3Controller.SetPlayerID(Players.P3);
+        p3Controller = new Manager_ControllerInput();
+        p3Controller.SetPlayerID(Players.P3);
         
-        P4Controller = new Manager_ControllerInput();
-        P4Controller.SetPlayerID(Players.P4);
+        p4Controller = new Manager_ControllerInput();
+        p4Controller.SetPlayerID(Players.P4);
 
-        P5Controller = new Manager_ControllerInput();
-        P5Controller.SetPlayerID(Players.P5);
+        p5Controller = new Manager_ControllerInput();
+        p5Controller.SetPlayerID(Players.P5);
 
-        P6Controller = new Manager_ControllerInput();
-        P6Controller.SetPlayerID(Players.P6);
+        p6Controller = new Manager_ControllerInput();
+        p6Controller.SetPlayerID(Players.P6);
+        
+        p7Controller = new Manager_ControllerInput();
+        p7Controller.SetPlayerID(Players.P7);
 
-        P7Controller = new Manager_ControllerInput();
-        P7Controller.SetPlayerID(Players.P7);
-
-        P8Controller = new Manager_ControllerInput();
-        P8Controller.SetPlayerID(Players.P8);
+        p8Controller = new Manager_ControllerInput();
+        p8Controller.SetPlayerID(Players.P8);
 
     }
 	
@@ -67,125 +68,41 @@ public class Manager_ControllerInputManager : MonoBehaviour
     //Update is called every frame and updates the Controller Input classes, since they don't inherit from Monobehavior
     void Update()
     {
-        P1Controller.LogicUpdate();
-        P2Controller.LogicUpdate();
-        P3Controller.LogicUpdate();
-        P4Controller.LogicUpdate();
-        P5Controller.LogicUpdate();
-        P6Controller.LogicUpdate();
-        P7Controller.LogicUpdate();
-        P8Controller.LogicUpdate();
+        p1Controller.LogicUpdate();
+        p2Controller.LogicUpdate();
+        p3Controller.LogicUpdate();
+        p4Controller.LogicUpdate();
+        p5Controller.LogicUpdate();
+        p6Controller.LogicUpdate();
+        p7Controller.LogicUpdate();
+        p8Controller.LogicUpdate();
     }
 
 	
     //Used to disable all player input (NOTE: Individual controllers can be disabled through their static reference)
     public void DisableAllPlayerInput()
     {
-        P1Controller.DisableInput();
-        P2Controller.DisableInput();
-        P3Controller.DisableInput();
-        P4Controller.DisableInput();
-        P5Controller.DisableInput();
-        P6Controller.DisableInput();
-        P7Controller.DisableInput();
-        P8Controller.DisableInput();
+        p1Controller.DisableInput();
+        p2Controller.DisableInput();
+        p3Controller.DisableInput();
+        p4Controller.DisableInput();
+        p5Controller.DisableInput();
+        p6Controller.DisableInput();
+        p7Controller.DisableInput();
+        p8Controller.DisableInput();
     }
 
 
     //Used to re-enable all player input (NOTE: Individual controllers can be enabled through their static reference)
     public void EnableAllPlayerInput()
     {
-        P1Controller.EnableInput();
-        P2Controller.EnableInput();
-        P3Controller.EnableInput();
-        P4Controller.EnableInput();
-        P5Controller.EnableInput();
-        P6Controller.EnableInput();
-        P7Controller.EnableInput();
-        P8Controller.EnableInput();
-    }
-
-
-    //Toggles P1 Left Stick's Y to inverted and not inverted. (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P1LeftInvertY(bool inverted_)
-    {
-        P1Controller.InvertLeftY(inverted_);
-    }
-
-
-    //Toggles P1 Right Stick's Y to inverted and not inverted. (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P1RightInvertY(bool inverted_)
-    {
-        P1Controller.InvertRightY(inverted_);
-    }
-
-
-    //Toggles P1 Left Stick's Y to inverted and not inverted. (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P2LeftInvertY(bool inverted_)
-    {
-        P2Controller.InvertLeftY(inverted_);
-    }
-
-
-    //Toggles P2 Right Stick's Y to inverted and not inverted. (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P2RightInvertY(bool inverted_)
-    {
-        P2Controller.InvertRightY(inverted_);
-    }
-
-
-    //Toggles P3 Left Stick's Y to inverted and not inverted. (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P3LeftInvertY(bool inverted_)
-    {
-        P3Controller.InvertLeftY(inverted_);
-    }
-
-
-    //Toggles P3 Right Stick's Y to inverted and not inverted. (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P3RightInvertY(bool inverted_)
-    {
-        P3Controller.InvertRightY(inverted_);
-    }
-
-
-    //Toggles P4 Left Stick's Y to inverted and not inverted. (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P4LeftInvertY(bool inverted_)
-    {
-        P4Controller.InvertLeftY(inverted_);
-    }
-
-
-    //Toggles P4 Right Stick's Y to inverted and not inverted. (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P4RightInvertY(bool inverted_)
-    {
-        P4Controller.InvertRightY(inverted_);
-    }
-
-
-    //Sets the sensitivity for P1's camera (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P1Sensitivity(float newSensitivity_)
-    {
-        P1Controller.SetLookSensitivity(newSensitivity_);
-    }
-
-
-    //Sets the sensitivity for P2's camera (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P2Sensitivity(float newSensitivity_)
-    {
-        P2Controller.SetLookSensitivity(newSensitivity_);
-    }
-
-
-    //Sets the sensitivity for P3's camera (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P3Sensitivity(float newSensitivity_)
-    {
-        P3Controller.SetLookSensitivity(newSensitivity_);
-    }
-
-
-    //Sets the sensitivity for P4's camera (NOTE: This function is available here because UI elements can't access individual controllers)
-    public void P4Sensitivity(float newSensitivity_)
-    {
-        P4Controller.SetLookSensitivity(newSensitivity_);
+        p1Controller.EnableInput();
+        p2Controller.EnableInput();
+        p3Controller.EnableInput();
+        p4Controller.EnableInput();
+        p5Controller.EnableInput();
+        p6Controller.EnableInput();
+        p7Controller.EnableInput();
+        p8Controller.EnableInput();
     }
 }

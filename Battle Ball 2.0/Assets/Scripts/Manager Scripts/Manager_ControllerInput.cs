@@ -196,6 +196,22 @@ public class Manager_ControllerInput// : MonoBehaviour
                 Prefix = "P4";
                 JoystickNum = "4";
                 break;
+            case Players.P5:
+                Prefix = "P5";
+                JoystickNum = "5";
+                break;
+            case Players.P6:
+                Prefix = "P6";
+                JoystickNum = "6";
+                break;
+            case Players.P7:
+                Prefix = "P7";
+                JoystickNum = "7";
+                break;
+            case Players.P8:
+                Prefix = "P8";
+                JoystickNum = "8";
+                break;
             default:
                 Prefix = "P1";
                 JoystickNum = "1";

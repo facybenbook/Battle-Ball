@@ -85,56 +85,56 @@ public class Player_2DMovement : MonoBehaviour
     {
         //Finding the angle that we're currently facing, moving, and then gets the difference between them
         this.angleFacing = this.transform.localEulerAngles.z;
-        this.angleMoving = Mathf.Atan2(this.playerController.LeftStick.y, this.playerController.LeftStick.x) * Mathf.Rad2Deg;
-        this.angleDiff = Mathf.DeltaAngle(this.angleFacing, this.angleMoving);
-        Debug.Log("Facing: " + this.angleFacing + ", Moving: :" + this.angleMoving + ", Diff: " + this.angleDiff);
+
+        //Correcting the weird -180 to 180 rotation value. Don't know WHY it isn't 0 to 360....
+        if(this.angleFacing < 0)
+        {
+            this.angleFacing += 180;
+        }
+
+        this.angleMoving = Mathf.Atan2(-this.playerController.LeftStick.y, this.playerController.LeftStick.x) * Mathf.Rad2Deg;
+        this.angleDiff = Mathf.Abs( Mathf.DeltaAngle(this.angleFacing, this.angleMoving) );
 
         //Applying movement based on the direction of movement, that direction's given speed, and how far the left stick is tilted
         //Moving forward
         if (this.angleDiff < this.speedBufferAngle)
         {
-            //Debug.Log("Forward");
-            this.currentSpeed.x = Mathf.Cos(this.playerController.LeftStick.x) * this.forwardSpeed;
-            this.currentSpeed.y = Mathf.Sin(this.playerController.LeftStick.y) * this.forwardSpeed;
+            this.currentSpeed.x = this.playerController.LeftStick.x * this.forwardSpeed;
+            this.currentSpeed.y = this.playerController.LeftStick.y * -this.forwardSpeed;
         }
         //Between forward and strafing
         else if (this.angleDiff < (90 - this.speedBufferAngle))
         {
-            //Debug.Log("Forward Strafe");
             float speedPercentX = Mathf.Cos(this.angleDiff) * (this.forwardSpeed - this.strafeSpeed) + this.strafeSpeed;
             float speedPercentY = Mathf.Sin(this.angleDiff) * (this.forwardSpeed - this.strafeSpeed) + this.strafeSpeed;
 
-            this.currentSpeed.x = Mathf.Cos(this.playerController.LeftStick.x) * speedPercentX;
-            this.currentSpeed.y = Mathf.Sin(this.playerController.LeftStick.y) * speedPercentY;
+            this.currentSpeed.x = this.playerController.LeftStick.x * speedPercentX;
+            this.currentSpeed.y = this.playerController.LeftStick.y * -speedPercentY;
         }
         //Strafing
         else if (this.angleDiff < (90 + this.speedBufferAngle))
         {
-            //Debug.Log("Strafe");
-            this.currentSpeed.x = Mathf.Cos(this.playerController.LeftStick.x) * this.strafeSpeed;
-            this.currentSpeed.y = Mathf.Sin(this.playerController.LeftStick.y) * this.strafeSpeed;
+            this.currentSpeed.x = this.playerController.LeftStick.x * this.strafeSpeed;
+            this.currentSpeed.y = this.playerController.LeftStick.y * -this.strafeSpeed;
         }
         //Between backward and strafing
         else if (this.angleDiff < (180 - this.speedBufferAngle))
         {
-            //Debug.Log("Backward Strafe");
             float speedPercentX = Mathf.Cos(this.angleDiff) * (this.strafeSpeed - this.backwardSpeed) + this.backwardSpeed;
             float speedPercentY = Mathf.Sin(this.angleDiff) * (this.strafeSpeed - this.backwardSpeed) + this.backwardSpeed;
 
-            this.currentSpeed.x = Mathf.Cos(this.playerController.LeftStick.x) * speedPercentX;
-            this.currentSpeed.y = Mathf.Sin(this.playerController.LeftStick.y) * speedPercentY;
+            this.currentSpeed.x = this.playerController.LeftStick.x * speedPercentX;
+            this.currentSpeed.y = this.playerController.LeftStick.y * -speedPercentY;
         }
         //Moving backward
         else
         {
-            //Debug.Log("Backward");
-            this.currentSpeed.x = Mathf.Cos(this.playerController.LeftStick.x) * this.backwardSpeed;
-            this.currentSpeed.y = Mathf.Sin(this.playerController.LeftStick.y) * this.backwardSpeed;
+            this.currentSpeed.x = this.playerController.LeftStick.x * this.backwardSpeed;
+            this.currentSpeed.y = this.playerController.LeftStick.y * -this.backwardSpeed;
         }
 
         //Applies the new movement to this object's rigid body
         this.ourRigidBody.AddForce(this.currentSpeed);
-        //Debug.Log("Velocity: " + this.ourRigidBody.velocity);
     }
 }
 

@@ -4,73 +4,51 @@ using System.Collections.Generic;
 
 public class CameraMount_FollowWeights : MonoBehaviour
 {
-    //If this camera tracks Z distance
-    public bool TrackZDist = false;
-    //If this camera follows player 1
-    public Players PlayerID = Players.P1;
-    //A static reference to player cameras that objects with Camera_Weight can reference
-    public static GameObject Player1Cam;
-    public static GameObject Player2Cam;
-    public static GameObject Player3Cam;
-    public static GameObject Player4Cam;
-
+    //Static ref to the main camera (this camera)
+    public static CameraMount_FollowWeights thisCam;
+    
     //An array to hold all of the objects that have the Camera_Weight component on them
-    private List<GameObject> WeightObjects;
+    private List<GameObject> weightObjects;
     //The sum of all weights of objects in the WeightObjects array
-    private int WeightSum = 0;
+    private int weightSum = 0;
     //The rate that this camera interps to the weight position
     [Range(0, 1.0f)]
-    public float InterpSpeed = 0.95f;
+    public float interpSpeed = 0.95f;
 
     //Reference to this object's camera component
-    private Camera WeightCamera;
+    private Camera weightCamera;
     //The furthest out the camera can zoom based on object distance
-    public float MaxZoom = 60;
+    public float maxZoom = 60;
     //The furthest in the camera can zoom based on object distance
-    public float MinZoom = 30;
+    public float minZoom = 30;
     //The furthest distance that affects zoom
-    public float MaxZoomDist = 6;
+    public float maxZoomDist = 6;
     //The closest distance that affects zoom
-    public float MinZoomDist = 0;
+    public float minZoomDist = 0;
 
 
 
     // Use this for initialization
-    void Start ()
+    private void Awake ()
     {
-        //sets the static reference based on what camera this is
-	    switch(PlayerID)
+        //Sets the static reference to this camera if one doesn't already exist
+        if(thisCam == null)
         {
-            case Players.P1:
-                Player1Cam = gameObject;
-                break;
-            case Players.P2:
-                Player2Cam = gameObject;
-                break;
-            case Players.P3:
-                Player3Cam = gameObject;
-                break;
-            case Players.P4:
-                Player4Cam = gameObject;
-                break;
-            default:
-                Player1Cam = gameObject;
-                break;
+            thisCam = this;
         }
 
         //Initializes the list to hold weighted objects
-        WeightObjects = new List<GameObject>();
+        thisCam.weightObjects = new List<GameObject>();
         //Makes sure the sum of weights starts at 0
-        WeightSum = 0;
+        thisCam.weightSum = 0;
 
         //Stores the reference to this object's camera component
-        WeightCamera = GetComponent<Camera>();
+        thisCam.weightCamera = GetComponent<Camera>();
 	}
 	
-
-
+    
     //Function called by objects with the Camera_Weight component when they come into range
-    public void AddWeightedObject(GameObject objToAdd_)
+    public static void AddWeightedObject(GameObject objToAdd_)
     {
         //makes sure the object being added has a weight
         if (objToAdd_.GetComponent<Camera_Weight>() == null)
@@ -80,23 +58,22 @@ public class CameraMount_FollowWeights : MonoBehaviour
         }
 
         //Adds the weighted object to the list of game objects
-        WeightObjects.Add(objToAdd_);
+        thisCam.weightObjects.Add(objToAdd_);
         //Adds the weighted object's weight to the sum of all of them
-        WeightSum += objToAdd_.GetComponent<Camera_Weight>().Weight;
+        thisCam.weightSum += objToAdd_.GetComponent<Camera_Weight>().weight;
     }
 
-
-
+    
     //Function called by objects with Camera_Weight component when they drop out of range
-    public void DropWeightedObject(GameObject objToDrop_)
+    public static void DropWeightedObject(GameObject objToDrop_)
     {
         //makes sure the object being dropped is in the list of game objects in the first place
-        if (WeightObjects.Contains(objToDrop_))
+        if (thisCam.weightObjects.Contains(objToDrop_))
         {
             //Removes the weighted object from the list of game objects
-            WeightObjects.Remove(objToDrop_);
+            thisCam.weightObjects.Remove(objToDrop_);
             //Subtracts the weighted object's weight from the sum of all of them
-            WeightSum -= objToDrop_.GetComponent<Camera_Weight>().Weight;
+            thisCam.weightSum -= objToDrop_.GetComponent<Camera_Weight>().weight;
         }
         else
         {
@@ -107,32 +84,28 @@ public class CameraMount_FollowWeights : MonoBehaviour
 
 
 	// Update is called once per frame
-	void FixedUpdate ()
+	private void FixedUpdate ()
     {
+        //Doesn't update unless there's an object to follow
+        if (thisCam.weightSum == 0)
+            return;
+
         //Gets the position that this camera needs to go to
         Vector3 interpPos = FindWeightPosition();
 
         //Finds the difference position
-        Vector3 diff;
-
-        if(TrackZDist)
-        {
-            diff = new Vector3(interpPos.x - transform.position.x,
-                               interpPos.y - transform.position.y,
-                               interpPos.z - transform.position.z);
-        }
-        else
-        {
-            diff = new Vector3(interpPos.x - transform.position.x,
-                               interpPos.y - transform.position.y,
-                               transform.position.z);
-        }
+        Vector2 diff = new Vector3(interpPos.x - thisCam.transform.position.x,
+                            interpPos.y - thisCam.transform.position.y);
 
         //Sets this camera's position so that it moves in the direction of the interpPos
-        transform.position = transform.position + (diff * InterpSpeed);
+        //thisCam.transform.position = thisCam.transform.position + (diff * thisCam.interpSpeed);
+
+        thisCam.transform.localPosition = new Vector3(thisCam.transform.localPosition.x + (diff.x * thisCam.interpSpeed),
+                                                      thisCam.transform.localPosition.y + (diff.y * thisCam.interpSpeed),
+                                                      thisCam.transform.localPosition.z);
 
         //Sets the camera's field of view based on the furthest tracked object's distance
-        WeightCamera.fieldOfView += (FindZoom() - WeightCamera.fieldOfView) * InterpSpeed;
+        thisCam.weightCamera.orthographicSize += (this.FindZoom() - thisCam.weightCamera.orthographicSize) * thisCam.interpSpeed;
 	}
 
 
@@ -141,16 +114,16 @@ public class CameraMount_FollowWeights : MonoBehaviour
     private Vector3 FindWeightPosition()
     {
         //The position that this function returns
-        Vector3 returnPos = new Vector3();
+        Vector3 returnPos = new Vector3(0,0,0);
 
         //Loops through each object in the list and adds its position to the returnPos a number of times equal to its weight
-        for(int o = 0; o < WeightObjects.Count; ++o)
+        for(int o = 0; o < thisCam.weightObjects.Count; ++o)
         {
-            returnPos += (WeightObjects[o].transform.position * WeightObjects[o].GetComponent<Camera_Weight>().Weight);
+            returnPos += (thisCam.weightObjects[o].transform.position * thisCam.weightObjects[o].GetComponent<Camera_Weight>().weight);
         }
 
         //Divides the position by the sum of weights
-        returnPos = returnPos / WeightSum;
+        returnPos = returnPos / thisCam.weightSum;
 
         return returnPos;
     }
@@ -162,59 +135,42 @@ public class CameraMount_FollowWeights : MonoBehaviour
         float zoom = 0;
         float furthestDist = 0;
         float currentDist = 0;
-
-        //Finds object distances based on their XYZ distance from the camera
-        if(TrackZDist)
+        
+        //Loops through each tracked object to find the one furthest from this camera
+        for(int z = 0; z < thisCam.weightObjects.Count; ++z)
         {
-            //Loops through each tracked object to find the one furthest from this camera
-            for(int z = 0; z < WeightObjects.Count; ++z)
-            {
-                //Stores the distance between the camera and the current object in the list
-                currentDist = Vector3.Distance(transform.position, WeightObjects[z].transform.position);
+            //Stores the distance between the camera and the current object in the list
+            currentDist = Vector2.Distance(new Vector2(thisCam.transform.position.x, thisCam.transform.position.y),
+                                            new Vector2(thisCam.weightObjects[z].transform.position.x, thisCam.weightObjects[z].transform.position.y));
 
-                //If this current distance is the furthest away so far, we store it
-                if(currentDist > furthestDist)
-                {
-                    furthestDist = currentDist;
-                }
-            }
-        }
-        //Otherwise ignores distance based on z pos
-        else
-        {
-            //Loops through each tracked object to find the one furthest from this camera
-            for(int z = 0; z < WeightObjects.Count; ++z)
+            //If this current distance is the furthest away so far, we store it
+            if(currentDist > furthestDist)
             {
-                //Stores the distance between the camera and the current object in the list
-                currentDist = Vector2.Distance(new Vector2(transform.position.x, transform.position.y),
-                                               new Vector2(WeightObjects[z].transform.position.x, WeightObjects[z].transform.position.y));
-
-                //If this current distance is the furthest away so far, we store it
-                if(currentDist > furthestDist)
-                {
-                    furthestDist = currentDist;
-                }
+                furthestDist = currentDist;
             }
         }
 
         //If the furthest object is at or beyond the max zoom distance, the zoom is set to the highest allowed
-        if(furthestDist >= MaxZoomDist)
+        if(furthestDist >= thisCam.maxZoomDist)
         {
-            zoom = MaxZoom;
+            Debug.Log("Far");
+            zoom = thisCam.maxZoom;
         }
         //If the furthest object is at or closer than the min zoom distance, the zoom is set to the lowest allowed
-        else if(furthestDist <= MinZoomDist)
+        else if(furthestDist <= thisCam.minZoomDist)
         {
-            zoom = MinZoom;
+            Debug.Log("Close");
+            zoom = thisCam.minZoom;
         }
         //If the furthest object is between the min and max zoom distance, we find the middleground based on the difference
         else
         {
-            float zoomDiff = MaxZoom - MinZoom;
-            float distDiff = MaxZoomDist - MinZoomDist;
-            float distPercent = (furthestDist / MinZoomDist) / distDiff;
+            Debug.Log("Between");
+            float zoomDiff = thisCam.maxZoom - thisCam.minZoom;
+            float distDiff = thisCam.maxZoomDist - thisCam.minZoomDist;
+            float distPercent = (furthestDist / thisCam.minZoomDist) / distDiff;
 
-            zoom = (distPercent * zoomDiff) + MinZoom;
+            zoom = (distPercent * zoomDiff) + thisCam.minZoom;
         }
 
 

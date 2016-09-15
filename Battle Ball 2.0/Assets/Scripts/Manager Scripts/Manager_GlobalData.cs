@@ -4,7 +4,7 @@ using System.Collections;
 public class Manager_GlobalData : MonoBehaviour
 {
     //A reference to the object that stores data between scenes
-    public static GameObject GlobalData;
+    public static GameObject globalData;
 
     //Determines if the mouse cursor is visible or hidden
     public bool ShowMouseCursor = true;
@@ -19,13 +19,13 @@ public class Manager_GlobalData : MonoBehaviour
     void Awake ()
     {
         //If there isn't already a static reference to this global data object, creates a new one
-	    if(GlobalData == null)
+	    if(globalData == null)
         {
             DontDestroyOnLoad(gameObject);
-            GlobalData = gameObject;
+            globalData = gameObject;
         }
         //Otherwise, we already have a global data object created and we can't make a new one
-        else if(GlobalData != gameObject)
+        else if(globalData != gameObject)
         {
             Destroy(gameObject);
         }

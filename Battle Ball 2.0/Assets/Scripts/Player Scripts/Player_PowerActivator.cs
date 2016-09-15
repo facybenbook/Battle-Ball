@@ -32,7 +32,7 @@ public class Player_PowerActivator : MonoBehaviour
 	    if(this.playerController.CheckButtonPressed(power1Button) || this.playerController.LeftTrigger > this.triggerDeadzone)
         {
             EVTData powerEVT = new EVTData();
-            powerEVT.playerPowerActivate = new PlayerPowerActivateEVT(this.playerController.PlayerID, true, false);
+            powerEVT.playerPowerActivate = new PlayerPowerActivateEVT(this.playerController.PlayerID, PowerSlot.MainPower, false);
             Manager_EventManager.TriggerEvent(PlayerPowerActivateEVT.eventName, powerEVT);
         }
 
@@ -41,7 +41,7 @@ public class Player_PowerActivator : MonoBehaviour
         {
 
             EVTData powerEVT = new EVTData();
-            powerEVT.playerPowerActivate = new PlayerPowerActivateEVT(this.playerController.PlayerID, false, true);
+            powerEVT.playerPowerActivate = new PlayerPowerActivateEVT(this.playerController.PlayerID, PowerSlot.SecondaryPower, true);
             Manager_EventManager.TriggerEvent(PlayerPowerActivateEVT.eventName, powerEVT);
         }
 	}

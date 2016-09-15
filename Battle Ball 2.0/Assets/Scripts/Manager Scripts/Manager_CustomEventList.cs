@@ -107,17 +107,15 @@ public class PlayerPowerActivateEVT
 
     //The player that used their power
     public Players playerID = Players.None;
-    //If the player used their power 1
-    public bool power1Used = false;
-    //If the player used their power 2
-    public bool power2Used = false;
+    //The power slot of the used power (Main or Secondary)
+    public PowerSlot slot = PowerSlot.MainPower;
+
 
     //Constructor for this event
-    public PlayerPowerActivateEVT(Players playerID_ = Players.None, bool power1Used_ = false, bool power2Used_ = false)
+    public PlayerPowerActivateEVT(Players playerID_ = Players.None, PowerSlot slot_ = PowerSlot.MainPower, bool power2Used_ = false)
     {
-        playerID = playerID_;
-        power1Used = power1Used_;
-        power2Used = power2Used_;
+        this.playerID = playerID_;
+        this.slot = slot_;
     }
 }
 
@@ -138,9 +136,9 @@ public class PlayerChangeTeamEVT
     //Constructor for this event
     public PlayerChangeTeamEVT(Players playerID_ = Players.None, Teams teamID_ = Teams.None, Color teamColor_ = new Color())
     {
-        playerID = playerID_;
-        teamID = teamID_;
-        teamColor = teamColor_;
+        this.playerID = playerID_;
+        this.teamID = teamID_;
+        this.teamColor = teamColor_;
     }
 }
 
@@ -161,8 +159,8 @@ public class GoalScoredEVT
     //Constructor for this event
     public GoalScoredEVT(Players playerID_ = Players.None, Teams playerTeamID_ = Teams.None, Teams scoredAgainstTeam_ = Teams.None)
     {
-        playerID = playerID_;
-        playerTeamID = playerTeamID_;
-        scoredAgainstTeam = scoredAgainstTeam_;
+        this.playerID = playerID_;
+        this.playerTeamID = playerTeamID_;
+        this.scoredAgainstTeam = scoredAgainstTeam_;
     }
 }

@@ -8,7 +8,7 @@ public class Manager_PlayerPowerTracker : MonoBehaviour
     [HideInInspector]
     public Dictionary<Players, List<Powers>> playerList = new Dictionary<Players, List<Powers>>(8)
     {
-        {Players.P1, new List<Powers>(2) { Powers.None, Powers.None } },
+        {Players.P1, new List<Powers>(2) { Powers.None, Powers.SpeedShoes } },
         {Players.P2, new List<Powers>(2) { Powers.None, Powers.None } },
         {Players.P3, new List<Powers>(2) { Powers.None, Powers.None } },
         {Players.P4, new List<Powers>(2) { Powers.None, Powers.None } },

@@ -153,19 +153,16 @@ public class CameraMount_FollowWeights : MonoBehaviour
         //If the furthest object is at or beyond the max zoom distance, the zoom is set to the highest allowed
         if(furthestDist >= thisCam.maxZoomDist)
         {
-            Debug.Log("Far");
             zoom = thisCam.maxZoom;
         }
         //If the furthest object is at or closer than the min zoom distance, the zoom is set to the lowest allowed
         else if(furthestDist <= thisCam.minZoomDist)
         {
-            Debug.Log("Close");
             zoom = thisCam.minZoom;
         }
         //If the furthest object is between the min and max zoom distance, we find the middleground based on the difference
         else
         {
-            Debug.Log("Between");
             float zoomDiff = thisCam.maxZoom - thisCam.minZoom;
             float distDiff = thisCam.maxZoomDist - thisCam.minZoomDist;
             float distPercent = (furthestDist / thisCam.minZoomDist) / distDiff;

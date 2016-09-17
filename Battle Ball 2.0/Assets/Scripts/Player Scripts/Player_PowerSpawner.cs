@@ -5,8 +5,10 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Player_IDTag))]
 public class Player_PowerSpawner : MonoBehaviour
 {
-    //Dictionary of power object prefabs to spawn on this player
-    public Dictionary<Powers, GameObject> powerObjects;
+    //List of power names that coorilate to the powerObjects list
+    public List<Powers> powerNames;
+    //List of power object prefabs to spawn on this player
+    public List<GameObject> powerObjects;
 
     //Reference to this player's ID so that the spawned powers know which player controlls them
     private Players playerID;
@@ -36,11 +38,12 @@ public class Player_PowerSpawner : MonoBehaviour
 
         //Creates an instance of the power object's prefab, parents it to this player's location, and tells it to listen to this player
         GameObject powerPrefab;
-        if(this.powerObjects.TryGetValue(power1_, out powerPrefab))
+        if(this.powerNames.Contains(power1_))
         {
+            powerPrefab = this.powerObjects[this.powerNames.IndexOf(power1_)];
             GameObject power1Obj = GameObject.Instantiate(powerPrefab, this.transform.position, this.transform.rotation) as GameObject;
             power1Obj.transform.SetParent(this.transform);
-            power1Obj.GetComponent<Power_DefaultLogic>().SetOwnerPlayer(this.playerID);
+            power1Obj.GetComponent<Power_DefaultLogic>().SetOwnerPlayer(this.playerID, PowerSlot.MainPower);
         }
     }
 
@@ -53,11 +56,12 @@ public class Player_PowerSpawner : MonoBehaviour
 
         //Creates an instance of the power object's prefab, parents it to this player's location, and tells it to listen to this player
         GameObject powerPrefab;
-        if (this.powerObjects.TryGetValue(power2_, out powerPrefab))
+        if (this.powerNames.Contains(power2_))
         {
-            GameObject power2Obj = GameObject.Instantiate(powerPrefab, this.transform.position, this.transform.rotation) as GameObject;
-            power2Obj.transform.SetParent(this.transform);
-            power2Obj.GetComponent<Power_DefaultLogic>().SetOwnerPlayer(this.playerID);
+            powerPrefab = this.powerObjects[this.powerNames.IndexOf(power2_)];
+            GameObject power1Obj = GameObject.Instantiate(powerPrefab, this.transform.position, this.transform.rotation) as GameObject;
+            power1Obj.transform.SetParent(this.transform);
+            power1Obj.GetComponent<Power_DefaultLogic>().SetOwnerPlayer(this.playerID, PowerSlot.SecondaryPower);
         }
     }
 }

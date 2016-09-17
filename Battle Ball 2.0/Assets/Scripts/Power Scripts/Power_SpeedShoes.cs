@@ -19,11 +19,9 @@ public class Power_SpeedShoes : Power_DefaultLogic
 
 
 
-    //Overrides the base function from Power_DefaultLogic. Use this for initialization
-    protected override void Awake()
+    //Function called on the first frame
+    private void Start()
     {
-        base.Awake();
-
         Player_2DMovement moveRef = this.transform.parent.GetComponent<Player_2DMovement>();
 
         //Saves the owner player's default speeds to use later
@@ -64,7 +62,7 @@ public class Power_SpeedShoes : Power_DefaultLogic
         {
             return;
         }
-
+        Debug.Log("Speed Shoes used, Slot: " + data_.playerPowerActivate.slot);
         //Sets the players new speeds and starts the cooldown timer and duration timer
         this.SetNewSpeeds();
         this.durationCounter = this.duration;

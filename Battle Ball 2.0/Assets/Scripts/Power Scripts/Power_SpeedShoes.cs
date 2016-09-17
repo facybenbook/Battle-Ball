@@ -62,7 +62,7 @@ public class Power_SpeedShoes : Power_DefaultLogic
         {
             return;
         }
-        Debug.Log("Speed Shoes used, Slot: " + data_.playerPowerActivate.slot);
+
         //Sets the players new speeds and starts the cooldown timer and duration timer
         this.SetNewSpeeds();
         this.durationCounter = this.duration;

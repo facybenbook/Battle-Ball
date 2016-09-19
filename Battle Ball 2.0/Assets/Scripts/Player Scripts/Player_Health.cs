@@ -38,7 +38,15 @@ public class Player_Health : MonoBehaviour
 
         //Decreases the time until this player respawns
         if (this.respawnCounter > 0)
+        {
             this.respawnCounter -= Time.fixedDeltaTime;
+
+            //If the player is done respawning, sets their health to max
+            if(this.respawnCounter <= 0)
+            {
+                this.currentHealth = this.maxHealth;
+            }
+        }
 	}
 
 
@@ -61,9 +69,9 @@ public class Player_Health : MonoBehaviour
             return;
 
         this.currentHealth -= damageDealt_;
-
+        
         //If the player's health hits 0, they die
-        if(this.currentHealth <= 0)
+        if (this.currentHealth <= 0)
         {
             //Starts the death sequence for this player
             this.currentHealth = 0;

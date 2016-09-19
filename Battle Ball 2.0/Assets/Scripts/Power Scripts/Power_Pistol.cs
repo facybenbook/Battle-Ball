@@ -16,8 +16,9 @@ public class Power_Pistol : Power_DefaultLogic
 
     //The amount of force exerted on the player when fired
     public float recoilForce = 10;
-    //A private reference to this owner's rigidbody so we can have recoil
-    private Rigidbody2D playerRigidBody;
+
+    //The distance bullets are offset from the player when spawned
+    public float spawnOffset = 2;
 
 
 
@@ -26,9 +27,6 @@ public class Power_Pistol : Power_DefaultLogic
     {
         //Loads all bullets in the clip to max
         this.bulletsInClip = this.clipSize;
-
-        //Gets the reference to the player's rigidbody
-        this.playerRigidBody = this.transform.parent.GetComponent<Rigidbody2D>();
 	}
 
 
@@ -46,6 +44,12 @@ public class Power_Pistol : Power_DefaultLogic
                 this.bulletsInClip = this.clipSize;
             }
         }
+
+        //Counts down the fire time
+        if(this.currentFireTime > 0)
+        {
+            this.currentFireTime -= Time.deltaTime;
+        }
     }
 
 
@@ -62,12 +66,15 @@ public class Power_Pistol : Power_DefaultLogic
         }
 
         //Spawns in a new bullet in front of the player
-        Debug.Log("Offset the bullet in front of the player");
         Vector3 spawnLoc = this.transform.position;
+        spawnLoc += new Vector3(Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset,
+                                Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset,
+                                0);
         GameObject newBullet = GameObject.Instantiate(this.bullet, spawnLoc, this.transform.rotation) as GameObject;
+        newBullet.GetComponent<BulletLogic>().owner = this.ownerPlayer;
 
         //Forces the player backward to give this gun recoil
-        Debug.Log("Add backwards recoil");
+        this.Recoil();
 
         //Subtracts a bullet from the current clip
         this.bulletsInClip -= 1;
@@ -82,5 +89,14 @@ public class Power_Pistol : Power_DefaultLogic
         {
             this.rechargeCounter = this.rechargeTime;
         }
+    }
+
+
+    //Pushes the player owner backward whenever a shot is fired
+    private void Recoil()
+    {
+        Debug.Log("Add backwards recoil");
+        //Gets the reference to the player's rigidbody
+        Rigidbody2D playerRigidBody = this.transform.parent.GetComponent<Rigidbody2D>();
     }
 }

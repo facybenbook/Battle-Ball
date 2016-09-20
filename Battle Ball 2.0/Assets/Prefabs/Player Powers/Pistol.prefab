@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 447346}
-  - 114: {fileID: 11403878}
+  - 114: {fileID: 11484078}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11403878
+--- !u!114 &11484078
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -36,16 +36,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 130726}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6da2c2b649ecd0458a8ff40c0cdc219, type: 3}
+  m_Script: {fileID: 11500000, guid: bce9d9062bc8e16468419c3f3580edc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   powerIcon: {fileID: 0}
   rechargeTime: 1
-  bullet: {fileID: 191534, guid: c02f5200581edab4f819244d54aa34be, type: 2}
+  projectileToShoot: {fileID: 191534, guid: c02f5200581edab4f819244d54aa34be, type: 2}
   clipSize: 6
   fireSpeed: 0.2
-  recoilForce: 10
+  recoilForce: 30
   spawnOffset: 1
+  angleVariance: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -76,6 +77,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: spawnOffset
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: angleVariance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: projectileToShoot
+      value: 
+      objectReference: {fileID: 191534, guid: c02f5200581edab4f819244d54aa34be, type: 2}
+    - target: {fileID: 0}
+      propertyPath: recoilForce
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -68,20 +68,8 @@ public class Power_FireProjectile : Power_DefaultLogic
             return;
         }
 
-        //Spawns in a new projectile in front of the player
-        Vector3 spawnLoc = this.transform.position;
-        spawnLoc += new Vector3(Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset,
-                                Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset,
-                                0);
-        GameObject newProjectile = GameObject.Instantiate(this.projectileToShoot, spawnLoc, this.transform.rotation) as GameObject;
-        newProjectile.GetComponent<BulletLogic>().owner = this.ownerPlayer;
-
-        //Adds angle variance for the projectile
-        if(this.angleVariance != 0)
-        {
-            float offset = Random.Range(-this.angleVariance, this.angleVariance);
-            newProjectile.transform.eulerAngles += new Vector3(0,0, offset);
-        }
+        //Spawns the projectile to fire
+        this.FireProjectile();
 
         //Forces the player backward to give this gun recoil
         this.Recoil();
@@ -102,8 +90,28 @@ public class Power_FireProjectile : Power_DefaultLogic
     }
 
 
-    //Pushes the player owner backward whenever a shot is fired
-    private void Recoil()
+    //Function called from ActivatePower. Spawns a projectile, aims it, and tells it which player fired it
+    protected virtual void FireProjectile()
+    {
+        //Spawns in a new projectile in front of the player
+        Vector3 spawnLoc = this.transform.position;
+        spawnLoc += new Vector3(Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset,
+                                Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset,
+                                0);
+        GameObject newProjectile = GameObject.Instantiate(this.projectileToShoot, spawnLoc, this.transform.rotation) as GameObject;
+        newProjectile.GetComponent<BulletLogic>().owner = this.ownerPlayer;
+
+        //Adds angle variance for the projectile
+        if (this.angleVariance != 0)
+        {
+            float offset = Random.Range(-this.angleVariance, this.angleVariance);
+            newProjectile.transform.eulerAngles += new Vector3(0, 0, offset);
+        }
+    }
+
+
+    //Function called from ActivatePower. Pushes the player owner backward whenever a shot is fired
+    protected virtual void Recoil()
     {
         //Gets the angle for the opposite direction the player's facing
         float backwardAngle = this.transform.eulerAngles.z + 180;

@@ -236,10 +236,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f09f7a006e6b549ad6b62dd828c74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerNames: 0500000001000000
+  powerNames: 050000000100000002000000
   powerObjects:
   - {fileID: 193988, guid: 5b60980db71dd344da89c8175c82b14c, type: 2}
   - {fileID: 130726, guid: 991a5e5da75efe34db38804ad6b11a62, type: 2}
+  - {fileID: 122842, guid: 2c0ae2e22b5c6ad48b475b04a9cb2d41, type: 2}
 --- !u!114 &11481482
 MonoBehaviour:
   m_ObjectHideFlags: 1

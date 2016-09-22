@@ -18,7 +18,7 @@ public class Power_FireProjectile : Power_DefaultLogic
     public float recoilForce = 10;
 
     //The distance projectiles are offset from the player when spawned
-    public float spawnOffset = 2;
+    public float spawnOffset = 0.8f;
 
     //The variance in angle of the projectile when fired
     public float angleVariance = 0;
@@ -95,8 +95,8 @@ public class Power_FireProjectile : Power_DefaultLogic
     {
         //Spawns in a new projectile in front of the player
         Vector3 spawnLoc = this.transform.position;
-        spawnLoc += new Vector3(Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset,
-                                Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset,
+        spawnLoc += new Vector3(Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset * this.transform.parent.localScale.x,
+                                Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset * this.transform.parent.localScale.x,
                                 0);
         GameObject newProjectile = GameObject.Instantiate(this.projectileToShoot, spawnLoc, this.transform.rotation) as GameObject;
         newProjectile.GetComponent<BulletLogic>().owner = this.ownerPlayer;

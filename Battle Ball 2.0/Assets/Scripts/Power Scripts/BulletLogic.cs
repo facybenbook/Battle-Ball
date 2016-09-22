@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
@@ -12,16 +13,21 @@ public class BulletLogic : MonoBehaviour
     //The amount of time before this bullet automatically destroys itself if nothing's hit
     public float lifetime = 5;
 
+    //The unity event invoked when this bullet's lifetime is up
+    public UnityEvent lifetimeDoneEvent;
+    //The unity event invoked when this bullet collides with another object
+    public UnityEvent collisionEvent;
+
     //A quick reference to this owner's rigid body component
-    private Rigidbody2D ownerRigidBody;
+    protected Rigidbody2D ownerRigidBody;
     //The player ID that this bullet will ignore
     [HideInInspector]
     public Players owner = Players.None;
 
-
+    
 
 	// Use this for initialization
-	private void Start ()
+	protected virtual void Start ()
     {
         this.ownerRigidBody = this.GetComponent<Rigidbody2D>();
 
@@ -34,20 +40,20 @@ public class BulletLogic : MonoBehaviour
 
 
     //FixedUpdate is called every frame
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         this.lifetime -= Time.deltaTime;
 
-        //If this bullet's lifetime is up, it destroys itself
+        //If this bullet's lifetime is up, it triggers the event for when this happens
         if(this.lifetime < 0)
         {
-            Destroy(this.gameObject);
+            this.lifetimeDoneEvent.Invoke();
         }
     }
 	
 
 	//Function called when this object collides with another object
-	private void OnTriggerEnter2D (Collider2D otherObj_)
+	protected virtual void OnTriggerEnter2D (Collider2D otherObj_)
     {
         //If the other object hit was a player
 	    if(otherObj_.GetComponent<Player_IDTag>() != null)
@@ -59,7 +65,7 @@ public class BulletLogic : MonoBehaviour
             }
         }
 
-        //Destroys this object 
-        Destroy(this.gameObject);
+        //Triggers the event for when this bullet collides with something
+        this.collisionEvent.Invoke();
     }
 }

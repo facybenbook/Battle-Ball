@@ -16,8 +16,8 @@ public class Power_FireBeam : Power_FireProjectile
     {
         //Finds the ray start point in front of the player
         Vector3 startLoc = this.transform.position;
-        startLoc += new Vector3(Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset,
-                                Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset,
+        startLoc += new Vector3(Mathf.Cos(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset * this.transform.parent.localScale.x,
+                                Mathf.Sin(this.transform.eulerAngles.z * Mathf.Deg2Rad) * this.spawnOffset * this.transform.parent.localScale.x,
                                 0);
 
         //Adds angle variance for the ray

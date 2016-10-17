@@ -22,7 +22,9 @@ public class TileMapOrigin : MonoBehaviour
     public int tilesDown;
 
     //The 2D list that contains every individual tile for this map
-    private List<List<GameObject>> tileGrid;
+    private List<List<TileInfo>> tileGrid;
+    //2D list that contains all collision verteces for each tile in this tile map
+    private List<List<Vector3>> colliderVerts;
 
 
     
@@ -41,7 +43,7 @@ public class TileMapOrigin : MonoBehaviour
             //Loops through a number of times equal to the num to add
             for(int n = 0; n < numToAdd_; ++n)
             {
-                this.tileGrid.Insert(0, new List<GameObject>(this.tilesLeft + this.tilesRight));
+                this.tileGrid.Insert(0, new List<TileInfo>(this.tilesLeft + this.tilesRight));
             }
         }
         //Adds new rows at the end of the first list
@@ -52,7 +54,7 @@ public class TileMapOrigin : MonoBehaviour
             //Loops through a number of times equal to the num to add
             for(int n = 0; n < numToAdd_; ++n)
             {
-                this.tileGrid.Add(new List<GameObject>(this.tilesLeft + this.tilesRight));
+                this.tileGrid.Add(new List<TileInfo>(this.tilesLeft + this.tilesRight));
             }
         }
         //Loops through each row in the first list and inserts new columns at the beginning of the inner lists
@@ -65,7 +67,7 @@ public class TileMapOrigin : MonoBehaviour
             {
                 for (int n = 0; n < numToAdd_; ++n)
                 {
-                    this.tileGrid[r].Insert(0, new GameObject());
+                    this.tileGrid[r].Insert(0, new TileInfo());
                 }
             }
         }
@@ -79,7 +81,7 @@ public class TileMapOrigin : MonoBehaviour
             {
                 for (int n = 0; n < numToAdd_; ++n)
                 {
-                    this.tileGrid[r].Add(new GameObject());
+                    this.tileGrid[r].Add(new TileInfo());
                 }
             }
         }
@@ -110,7 +112,6 @@ public class TileMapOrigin : MonoBehaviour
                 //Nulls and destroys each tile in the removed row
                 for(int r = 0; r < this.tileGrid[0].Count; ++r)
                 {
-                    Destroy(this.tileGrid[0][r]);
                     this.tileGrid[0][r] = null;
                 }
 
@@ -132,7 +133,6 @@ public class TileMapOrigin : MonoBehaviour
                 //Nulls and destroys each tile in the removed row
                 for (int r = 0; r < this.tileGrid[0].Count; ++r)
                 {
-                    Destroy(this.tileGrid[this.tileGrid.Count - 1][r]);
                     this.tileGrid[this.tileGrid.Count - 1][r] = null;
                 }
 
@@ -154,7 +154,6 @@ public class TileMapOrigin : MonoBehaviour
                 //Destroys, nulls, and removes the first tile in each row
                 for(int n = 0; n < tilesRemoved; ++n)
                 {
-                    Destroy(this.tileGrid[r][0]);
                     this.tileGrid[r][0] = null;
                     this.tileGrid[r].RemoveAt(0);
                 }
@@ -174,7 +173,6 @@ public class TileMapOrigin : MonoBehaviour
                 //Destroys, nulls, and removes the last tile in each row
                 for(int n = 0; n < tilesRemoved; ++n)
                 {
-                    Destroy(this.tileGrid[r][this.tileGrid.Count - 1]);
                     this.tileGrid[r][this.tileGrid.Count - 1] = null;
                     this.tileGrid[r].RemoveAt(this.tileGrid.Count - 1);
                 }
@@ -183,6 +181,7 @@ public class TileMapOrigin : MonoBehaviour
     }
 
 
+    /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NOT NEEDED? REPLACING GAMEOBJ W/ VERTS
     //Function that makes sure all the tiles in this tile map are set to the correct position based on the width
     private void UpdateTilePositions()
     {
@@ -208,7 +207,7 @@ public class TileMapOrigin : MonoBehaviour
                                                                                      0);
             }
         }
-    }
+    }*/
 
 
     //Function that sets a tile at a given location in space. If tileToSet_ is NULL, deletes a tile
@@ -280,7 +279,40 @@ public class TileMapOrigin : MonoBehaviour
             }
         }
     }
+
+
+    //Function that generates a custom mesh for this tile map's collider
+    public void GenerateCollider()
+    {
+        //Clears this map's current collider since it's now outdated
+
+        //Loops through each tile in the tileGrid list
+            //Create vec2 that tracks the XY offset based on the current tile location and tile width
+            //For each triangle in each tile, create 3 placeholder verts
+            //Placeholder verts = XY offset + value of the verts from TileInfo * tile width
+            //Push placeholder verts to the current list of total verts for the new mesh
+            //Create a new triangle using placeholder vert indexes and push to the total list of triangles
+        
+        //Once all triangles have been created, call the CleanUp function below
+    }
+
+
+    //Function that combines duplicate vertices for the mesh collider we're creating so that it's more efficient
+    private void CleanUpVerts()
+    {
+        //Create an empty list of ints. These are index locations that are duplicates and will be popped from the total vert list
+        List<int> duplicateVertIndex = new List<int>();
+
+        //Iterate through each vertex in each triangle, checking each one against all verts in subsequent triangles
+            //If the verts we're checking against are the same position
+                //Push the index of the duplicate vert to the duplicateVertIndex list (check if it already exists first)
+                //Replace the current index in the triangle's vertex list with the one we're checking against
+        
+        // ########## COME BACK TO THIS LATER!! If any verts are popped from the main list, ALL triangles will be screwed up because
+        // the indexes will be shifted down
+    }
 }
+
 
 //Enum used in TileMapOrigin class to determine the direction when changing the size
 public enum Directions

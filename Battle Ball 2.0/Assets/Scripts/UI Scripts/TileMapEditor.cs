@@ -22,17 +22,6 @@ class TileMapEditor: EditorWindow
     //Handles the options that appear on this Editor Window that the user can change
     private void OnGUI()
     {
-        GUILayout.Label("Map Origin", EditorStyles.boldLabel);
-        //this.mapOrigin = EditorGUILayout.PropertyField(SerializedPropertyType.ObjectReference, "Tile Map Origin");
-
-        //Inserting a space between the origin and dimension inputs
-        EditorGUILayout.Space();
-
-        /*this.tilesLeft = EditorGUILayout.IntField("Tiles Left of the Origin", this.tilesLeft);
-        this.tilesRight = EditorGUILayout.IntField("Tiles Right of the Origin", this.tilesRight);
-        this.tilesUp = EditorGUILayout.IntField("Tiles Above the Origin", this.tilesUp);
-        this.tilesDown = EditorGUILayout.IntField("Tiles Below the Origin", this.tilesDown);*/
-
         //If the user is selecting an object that has a Tile Map, the map's settings can be changed
         if(this.mapOrigin != null)
         {
@@ -53,8 +42,10 @@ class TileMapEditor: EditorWindow
             //Created an input field to set the number of columns right of the origin
             this.mapOrigin.tilesRight = EditorGUILayout.IntField("Number of Columns Right", this.mapOrigin.tilesRight);
 
+            EditorGUILayout.Space();
+
             //Created a boolean input box that allows the player to toggle 
-            this.enableMapEditing = EditorGUILayout.Toggle("Enable Tile Map Editing", this.enableMapEditing);
+            this.enableMapEditing = EditorGUILayout.Toggle("Enable Tile Map Editing", this.ToggleMapEditing(this.enableMapEditing));
         }
         //Otherwise, there are no options to change because no tile map is selected
         else
@@ -83,6 +74,9 @@ class TileMapEditor: EditorWindow
             //Clears the reference to the Tile Map component
             this.mapOrigin = null;
         }
+
+        //Refreshes this window immediately to either show or hide the user options
+        this.Repaint();
     }
 
 
@@ -92,11 +86,13 @@ class TileMapEditor: EditorWindow
         //If true, disables object selection until turned off
         if(mapEditOn_)
         {
+            Debug.Log("Editing ON");
             //HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
         }
         //If false, lets the player select objects as normal
         else
         {
+            Debug.Log("Editing OFF");
             //HandleUtility.Repaint();
         }
 
